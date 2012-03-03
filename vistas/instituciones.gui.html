@@ -1,0 +1,335 @@
+<!--BeginJsContent-->
+<link href="gui/css/institucion.css" rel="stylesheet" type="text/css" media="screen, projection" />
+<script type="text/javascript" src="utilidades/js-scripts/LABjs-1.2.0/LAB.min.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="http://code.google.com/apis/gears/gears_init.js"></script>
+<script type="text/javascript">
+$LAB
+.script("http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js").wait()
+.script("{pathUrlBase}"+"utilidades/jquery/ui/jquery.bgiframe-2.1.2.js")
+.script("{pathUrlBase}"+"utilidades/jquery/ui/jquery-ui-1.8.11.custom.js")
+.script("{pathUrlBase}"+"utilidades/jquery/maxlength/maxlength.js")
+.script("{pathUrlBase}"+"utilidades/jquery/form/jquery.form.js")
+.script("{pathUrlBase}"+"utilidades/jquery/validate/jquery.validate.min.js")
+.script("{pathUrlBase}"+"utilidades/jquery/menu/superfish.js")
+.script("{pathUrlBase}"+"gui/vistas/comunidad/instituciones.js")
+.script("{pathUrlBase}"+"gui/js/vistas.js");
+	
+</script>
+<!--EndJsContent-->
+
+<!--BeginPageRightInnerMainContBlock-->
+<div class="pato3">
+    <div class="mabo2">
+        <div class="iveal mabo2">
+            <h2 class="di_in"><a href="{hrefNuevaInstitucion}">Crear una institucion</a></h2> <span class="i32 bs user32Add male"></span>
+        </div>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis venenatis dignissim viverra. In faucibus,
+            enim at sollicitudin vestibulum, lorem massa malesuada sapien, nec sodales sapien massa nec lorem. Fusce non ipsum massa,
+            sed faucibus nunc. Integer urna felis, lacinia quis mattis vel, rhoncus a lacus.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis venenatis dignissim viverra. In faucibus,
+            enim at sollicitudin vestibulum, lorem massa malesuada sapien, nec sodales sapien massa nec lorem. Fusce non ipsum massa,
+            sed faucibus nunc. Integer urna felis, lacinia quis mattis vel, rhoncus a lacus.
+        </p>
+    </div>
+</div>
+<!--EndPageRightInnerMainContBlock-->
+
+<!--BeginPageRightInnerContBlock-->
+<div class="mabo2">
+    <ul class="menu02">
+        <li class="mabo2"><a href="{hrefInstitucion}">Inicio</a></li>
+        <li class="mabo2"><a href="{hrefMisInstituciones}">Mis instituciones</a></li>
+        <li><a href="{hrefNuevaInstitucion}">Crear nueva institucion</a></li>
+    </ul>
+</div>
+<!--EndPageRightInnerContBlock-->
+
+<!--BeginFormularioBlock-->
+<div class='ficha04 bora grupo cl_bo' style="width:640px;float: left;">
+    <div class="titulo iveal"><span class="i32 bs user32Add"></span></div>
+    <div class="di_no" id="msg_conf"></div>
+    <form id="formCrearInstitucion" name="formCrearInstitucion" action="" method="post">
+        <div id='ajax_loading' class="ajax_wait30 di_no"></div>
+        <div id='msg_form_crearInstitucion' class="msg_form iveal di_no">
+        	<span class="bs i"></span>
+        	<span class="msg"></span>
+        </div>
+
+        <div id="msg_nombre" class="form_line msg_nombre">Nombre
+            <div class="fwrap">
+                <div class="inner_fwrap">
+                    <input class="requerido" type="text" name="nombre" id="nombre" title="Nombre de la institucion" maxlength="40" value="{sInstitucionNombre}" />
+                </div>
+            </div>
+        </div>
+        <div id="msg_descripcion" class="form_line msg_descripcion">Descripcion
+            <div class="fwrap">
+                <div class="inner_fwrap">
+                    <textarea rows="0" cols="0" id="descripcion" name="descripcion" class="textareaAutoGrow maxlength requerido" title="Breve descripcion de la institucion">{sInstitucionDescripcion}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div id="msg_tipo" class="form_line msg_tipo">Tipo de institucion
+            <div class="fwrap">
+                <div class="inner_fwrap">
+                    <select class="requerido" name="tipo" id="tipo" >
+                    	<option value="">Seleccione el tipo de institucion</option>
+                    	<!--BeginListaTipoDeInstitucionesBlock-->
+                    	<option value="{iInstitucionTiposId}" {sInstitucionTiposSelect}>{sInstitucionTiposNombre}</option>
+                    	<!--EndListaTipoDeInstitucionesBlock-->
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="msg_cargo" class="form_line msg_cargo">Cargo que ocupa en la institucion
+            <div class="fwrap">
+                <div class="inner_fwrap">
+                    <input class="requerido" type="text" name="cargo" id="cargo" title="Cargo que ocupa en la institucion" maxlength="40" value="{sInstitucionCargo}" />
+                </div>
+            </div>
+        </div>
+        <div id="msg_personaJuridica" class="form_line msg_personaJuridica">Persona juridica
+            <div class="fwrap">
+                <div class="inner_fwrap">
+                    <input class="" type="text" name="personaJuridica" id="personaJuridica" title="Persona juridica" maxlength="40" value="{sInstitucionPersonaJuridica}" />
+                </div>
+            </div>
+        </div>
+        <div id="msg_direccion" class="form_line msg_direccion">Direccion
+            <div class="fwrap">
+                <div class="inner_fwrap">
+                    <input class="requerido" type="text" name="direccion" id="direccion" title="Direccion" maxlength="40" value="{sInstitucionDireccion}" />
+                </div>
+            </div>
+        </div>
+
+	  <div id="msg_pais" class="form_line msg_pais">Pais
+            <div class="fwrap">
+                <div class="inner_fwrap">
+                    <select class="requerido" name="pais" id="pais" onchange="listaProvinciasByPais(this);" >
+                    	<option value="">Seleccione un pais</option>
+                    	<!--BeginListaPaisesBlock-->
+                    	<option value="{iPaisId}" {sInstitucionPaisSelect}>{sPaisNombre}</option>
+                    	<!--EndListaPaisesBlock-->
+                    </select>
+                </div>
+            </div>
+        </div>
+          <div id="msg_provincia" class="form_line msg_provincia">Provincia
+            <div class="fwrap">
+                <div class="inner_fwrap">
+                    <select class="requerido" name="provincia" id="provincia" onchange="listaCiudadesByProvincia(this);">
+                    	<option value="">Selecciones una provincia</option>
+                    	<!--BeginListaProvinciasBlock-->
+                    	<option value="{iProvinciaId}" {sInstitucionProvinciaSelect}>{sProvinciaNombre}</option>
+                    	<!--EndListaProvinciasBlock-->
+                    </select>
+                </div>
+            </div>
+        </div>
+          <div id="msg_ciudad" class="form_line msg_ciudad">Ciudad
+            <div class="fwrap">
+                <div class="inner_fwrap">
+                    <select class="requerido" name="ciudad" id="ciudad" >
+                    	<option value="">Selecciones una ciudad</option>
+                    	<!--BeginListaCiudadesBlock-->
+                    	<option value="{iCiudadId}" {sInstitucionCiudadSelect}>{sCiudadNombre}</option>
+                    	<!--EndListaCiudadesBlock-->
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="msg_email" class="form_line msg_email">Email
+            <div class="fwrap">
+                <div class="inner_fwrap">
+                    <input class="requerido" type="text" name="email" id="email" title="Email de la institucion" maxlength="40" value="{sInstitucionEmail}" />
+                </div>
+            </div>
+        </div>
+         <div id="msg_tel" class="form_line msg_tel">Telefono de contacto
+            <div class="fwrap">
+                <div class="inner_fwrap">
+                    <input class="requerido" type="text" name="tel" id="tel" title="Telefono de contacto" maxlength="40" value="{sInstitucionTelefono}" />
+                </div>
+            </div>
+         </div>
+         <div id="msg_email" class="form_line">Sitio web
+            <div class="fwrap">
+                <div class="inner_fwrap">
+                    <input class="" type="text" name="web" id="web" title="Sitio web" maxlength="40" value="{sInstitucionSitioWeb}" />
+                </div>
+            </div>
+        </div>
+         <div id="msg_email" class="form_line">Horario de atencion
+            <div id="hintEmail" class="msg_campo_der hint iveal di_no"><span class="bs i"></span> <span class="msg">La invitacion se enviara a esta direccion de correo,<br> desde la cual el invitado debera acceder al formulario de registracion</span></div>
+            <div class="fwrap">
+                <div class="inner_fwrap">
+                    <input class="" type="text" name="horarioAtencion" id="horarioAtencion" title="Horario de atencion" maxlength="40" value="{sInstitucionHorarios}" />
+                </div>
+            </div>
+        </div>
+         <div id="msg_email" class="form_line">Sedes
+            <div id="hintEmail" class="msg_campo_der hint iveal di_no"><span class="bs i"></span> <span class="msg">La invitacion se enviara a esta direccion de correo,<br> desde la cual el invitado debera acceder al formulario de registracion</span></div>
+            <div class="fwrap">
+                <div class="inner_fwrap">
+                    <input class="" type="text" name="sedes" id="sedes" title="Sedes" maxlength="40" value="{sInstitucionSedes}" />
+                </div>
+            </div>
+        </div>
+         <div id="msg_email" class="form_line">Autoridades
+            <div id="hintEmail" class="msg_campo_der hint iveal di_no"><span class="bs i"></span> <span class="msg">La invitacion se enviara a esta direccion de correo,<br> desde la cual el invitado debera acceder al formulario de registracion</span></div>
+            <div class="fwrap">
+                <div class="inner_fwrap">
+                    <input class="" type="text" name="autoridades" id="autoridades" title="Autoridades" maxlength="40" value="{sInstitucionAutoridades}" />
+                </div>
+            </div>
+        </div>
+         <div id="msg_email" class="form_line">Actividades del mes
+            <div id="hintEmail" class="msg_campo_der hint iveal di_no"><span class="bs i"></span> <span class="msg">La invitacion se enviara a esta direccion de correo,<br> desde la cual el invitado debera acceder al formulario de registracion</span></div>
+            <div class="fwrap">
+                <div class="inner_fwrap">
+                    <input class="" type="text" name="actividadesMes" id="actividadesMes" title="Actividades del mes" maxlength="40" value="{sInstitucionActividades}" />
+                </div>
+            </div>
+        </div>
+
+        <div class="fl_le">
+            <label for="CrearInstitucion" class="button buttonConfirm buttonLarge mari3">
+                <button id="crearInstitucion" type="submit" name="crearInstitucion" class="btn01">
+                    Guardar Institucion
+                </button>
+            </label>
+        </div>
+        <input type="hidden" name="latitud" id="latitud" value="{sInstitucionLatitud}" >
+        <input type="hidden" name="longitud" id="longitud" value="{sInstitucionLongitud}" >
+        <input type="hidden" name="idInstitucion" id="idInstitucion" value="{idInstitucion}" >
+         <div style="display:none;" id='msg_form_institucion' class="msg_form iveal cl_le mato3">
+	    	<span class="bs i"></span> 
+	    	<span class="msg"></span>
+	    </div>
+    </form>
+</div>
+<div id="map_canvas" style="float: left;  border: 3px solid;margin: 20px; height: 400px; width: 400px; display:block;"></div>
+<div style="float: left;" id="ubicarBtn">
+  	<label for="ubicarInstitucion" class="button buttonConfirm buttonLarge mari3">
+		<button type="button" onclick="codeAddress();" name="geoCoder" class="btn01" >
+			Ubicar institucion segun direccion 
+		</button>
+	</label>
+</div>
+<script type="text/javascript">
+
+</script>
+<!--EndFormularioBlock-->
+
+<!--BeginListadoInstitucionesBlock-->
+<div class='ficha04 bora grupo cl_bo' style="width:640px;float: left;">
+    <div class="titulo iveal"><span class="i32 bs user32Add"></span></div>
+    <div id="">
+    <form action="" method="post">
+    	<div>
+    		Nombre <input type="text" name="institucion_nombre" id="institucion_nombre"/>
+    	</div>
+    	<div>
+    		Pais
+           <select class="defVal requerido" name="pais" id="pais" onchange="listaProvinciasByPais(this);" >
+           		<option value="">Seleccione un pais</option>
+           		<!--BeginListaPaisesBlock-->
+           		<option value="{iPaisId}">{sPaisNombre}</option>
+           		<!--EndListaPaisesBlock-->
+           </select>
+    	</div>
+    	<div>
+    	Provincia
+           <select class="defVal requerido" name="provincia" id="provincia" onchange="listaCiudadesByProvincia(this);">
+          		<option value="">Selecciones una provincia</option>
+           		<!--BeginListaProvinciasBlock-->
+           		<option value="{iProvinciaId}">{sProvinciaNombre}</option>
+           		<!--EndListaProvinciasBlock-->
+           </select>
+    	</div>
+    	<div>
+    	Ciudad
+           <select class="defVal requerido" name="ciudad" id="ciudad" >
+           		<option value="">Selecciones una ciudad</option>
+           		<!--BeginListaCiudadesBlock-->
+           		<option value="{iCiudadId}">{sCiudadNombre}</option>
+           		<!--EndListaCiudadesBlock-->
+           </select>
+    	</div>
+    	<div>
+    	Tipo de institucion
+           <select class="defVal requerido" name="tipoInstitucion" id="tipoInstitucion" >
+           		<option value="">Selecciones un tipo</option>
+           		<!--BeginListaTipoDeInstitucionesBlock-->
+           		<option value="{iInstitucionTiposId}">{sInstitucionTiposNombre}</option>
+           		<!--EndListaTipoDeInstitucionesBlock-->
+           </select>
+    	</div>
+    	<div>
+    	 	<label for="BuscarInstitucion" class="button buttonConfirm buttonLarge mari3">
+                <button id="buscarInstitucion" type="button" name="buscarInstitucion" class="btn01" onclick="searchInstitucion();">
+                    Buscar Institucion
+                </button>
+            </label>
+        </div>
+    </form>
+    </div>
+    <div class="di_no" id="msg_conf"></div>
+    <!--BeginGrillaInstitucionBlock-->
+	<div id="listadoInstituciones">
+       <table class="table01" >
+           <tr class="encabezado">
+               <td>Id</td>
+               <td>Nombre</td>
+               <td>Tipo</td>
+               <td>Ciudad</td>
+               <td>Provincia</td>
+               <td>Pais</td>
+               <td>Ampliar</td>
+               <td>Modificar</td>
+           </tr>
+           <!--BeginListaDeInstitucionesBlock-->
+           <tr class="{odd}">
+               <td>{iInstitucionId}</td>
+               <td>{sInstitucionNombre}</td>
+               <td>{sInstitucionTipo}</td>
+               <td>{sInstitucionCiudad}</td>
+               <td>{sInstitucionProvincia}</td>
+               <td>{sInstitucionPais}</td>
+               <td><span class="i mi expand" onclick="ampliarInstitucion({iInstitucionId});"></span></td>
+               <!--BeginPermisoEditarInstitucionBlock-->
+               <td><span class="i bs edit" onclick="editarInstitucion({iInstitucionId});"></span></td>
+               <!--EndPermisoEditarInstitucionBlock-->
+           </tr>
+           <!--EndListaDeInstitucionesBlock-->
+       </table>
+       {paginacion}
+       <!--EndGrillaInstitucionBlock-->
+	</div>
+</div> 
+<!--EndListadoInstitucionesBlock-->
+
+<!--BeginFichaInstitucionBlock-->
+<div class="ficha02">
+    <h2>{sInstitucionNombre}</h2>
+    <div>{sInstitucionTipo}</div>
+    <div>{sInstitucionDescripcion}</div>
+    <div>{sInstitucionActividades}</div>
+    <div>{sInstitucionAutoridades}</div>
+    <div>{sInstitucionSedes}</div>
+    <div><b>Direccion:</b>{sInstitucionDireccion}</div>
+    <div>{sInstitucionCiudad}</div>
+    <div>{sInstitucionProvincia}</div>
+    <div>{sInstitucionPais}</div>
+    <div><b>Horarios de atencion :</b>{sInstitucionHorarios}</div>
+    <div><b>Email: </b>{sInstitucionEmail}</div>
+    <div><b>Telefono:</b> {sInstitucionTelefono}</div>
+    <div>{sInstitucionSitioWeb}</div>
+</div>
+<!--EndFichaInstitucionBlock-->
